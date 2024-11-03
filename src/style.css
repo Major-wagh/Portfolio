@@ -1,17 +1,17 @@
 html {
   --section-background-color: linear-gradient(
     to bottom left,
-    rgba(17, 16, 16, 0.582),
-    rgba(12, 8, 24, 0.904)
+    rgba(16, 27, 45, 0.582),
+    rgba(10, 14, 36, 0.904)
   );
 
   --image-gradient: linear-gradient(
     to bottom left,
-    rgba(17, 16, 16, 0.678),
-    rgba(12, 10, 22, 0.863)
+    rgba(16, 27, 45, 0.678),
+    rgba(12, 20, 44, 0.863)
   );
 
-  --imp-text-color: #c770f0;
+  --imp-text-color: #70a0f0;
 }
 
 .purple {
@@ -32,7 +32,7 @@ button:focus {
   width: 100%;
   height: 100%;
   z-index: 999999;
-  background-color: #0c0513;
+  background-color: #f7f7f7;
   background-image: url(./Assets/pre.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -57,18 +57,18 @@ button:focus {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #2d1950;
+  background: #1a3a6e;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(178, 121, 216, 0.959);
+  background: rgba(72, 121, 216, 0.959);
   border-radius: 12px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(222, 130, 235, 0.911);
+  background: rgba(88, 130, 235, 0.911);
   border-radius: 12px;
 }
 
@@ -76,10 +76,10 @@ button:focus {
 /* Navbar Section  */
 /* --------- */
 .sticky {
-  background-color: #1b1a2ea9 !important;
-  transition: all 0.3s ease-out 0s !important;
-  box-shadow: 0px 10px 10px 0px rgba(9, 5, 29, 0.171) !important;
-  backdrop-filter: blur(15px) !important;
+  background-color: #1a2b4d !important; /* A deep blue background color with transparency */
+  transition: all 0.3s ease-out 0s !important; /* Smooth transition effect for changes */
+  box-shadow: 0px 10px 10px 0px rgba(5, 10, 45, 0.171) !important; /* Adds a subtle shadow for depth, with a blue hue */
+  backdrop-filter: blur(15px) !important; /* Applies a blur effect to the background behind the element */
 }
 
 .navbar {
@@ -97,7 +97,7 @@ button:focus {
 
 .navbar-toggler span {
   display: block !important;
-  background-color: #be50f4 !important;
+  background-color: #507bf4 !important;
   height: 4px !important;
   width: 27px !important;
   margin-top: 5px !important;
@@ -144,12 +144,13 @@ button:focus {
   .navbar {
     padding: 1rem 2rem !important;
     font-size: 1.4rem !important;
-    background-color: #181a27 !important;
+    background-color: #1a2438 !important;
   }
   .navbar-nav .nav-item a::after {
     display: none !important;
   }
 }
+
 .navbar-brand {
   color: rgb(250, 250, 250) !important;
 }
@@ -194,7 +195,7 @@ button:focus {
   height: 5px;
   width: 0;
   border-radius: 16px;
-  background: #c95bf5;
+  background: #007bff; /* Changed to a blue shade */
   bottom: 1px;
   left: 0;
   z-index: -1;
@@ -254,7 +255,7 @@ button:focus {
   padding-top: 80px !important;
 }
 
-.home-section {
+/* .home-section {
   position: relative;
   z-index: -1;
   background-image: var(--image-gradient), url(./Assets/home-bg.jpg);
@@ -262,7 +263,7 @@ button:focus {
   background-repeat: no-repeat;
   padding-bottom: 30px !important;
   padding-top: 30px !important;
-}
+} */
 
 .home-content {
   padding: 9rem 0 2rem !important;
@@ -281,17 +282,18 @@ button:focus {
 }
 
 .main-name {
-  color: #cd5ff8;
+  color: #5f9ef8;
 }
 
 .Typewriter__wrapper {
   font-size: 2.2em !important;
-  color: #be6adf !important;
+  color: #6a9edf !important;
   font-weight: 600 !important;
 }
+
 .Typewriter__cursor {
   font-size: 2.4em !important;
-  color: #b562d6 !important;
+  color: #6296d6 !important;
 }
 
 @media (max-width: 767px) {
@@ -371,7 +373,7 @@ button:focus {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #68187a;
+  background: #184a7a;
   transition: 0.5s;
   transform: scale(0.9);
   z-index: -1;
@@ -379,13 +381,13 @@ button:focus {
 
 .home-social-icons:hover::before {
   transform: scale(1.1);
-  box-shadow: 0 0 15px #801f95;
+  box-shadow: 0 0 15px #1f6b95;
 }
 
 .home-social-icons:hover {
-  color: #87209e;
-  box-shadow: 0 0 5px #87209e;
-  text-shadow: 0 0 2px #87209e;
+  color: #2074a1;
+  box-shadow: 0 0 5px #2074a1;
+  text-shadow: 0 0 2px #2074a1;
 }
 
 .social-icons {
@@ -395,7 +397,7 @@ button:focus {
 }
 
 .icon-colour {
-  color: #700c86 !important;
+  color: #0c5586 !important;
 }
 
 /* --------- */
@@ -439,7 +441,7 @@ button:focus {
 }
 
 .blockquote-footer {
-  color: #a588c0 !important;
+  color: #588ac0 !important;
 }
 /* --------- */
 /* Projects */
@@ -460,17 +462,18 @@ button:focus {
 }
 
 .project-card-view {
-  box-shadow: 0 4px 5px 3px rgba(119, 53, 136, 0.459) !important;
+  box-shadow: 0 4px 5px 3px rgba(53, 119, 136, 0.459) !important;
   color: white !important;
   background-color: transparent !important;
   opacity: 0.9 !important;
   transition: all 0.5s ease 0s !important;
   height: 100% !important;
 }
+
 .project-card-view:hover {
   transform: scale(1.02) !important;
   overflow: hidden !important;
-  box-shadow: 0 4px 4px 5px rgba(129, 72, 144, 0.561) !important;
+  box-shadow: 0 4px 4px 5px rgba(72, 129, 144, 0.561) !important;
 }
 
 .blog-card {
@@ -483,7 +486,7 @@ button:focus {
 
 .blog-card-view {
   background-color: transparent !important;
-  box-shadow: 0 3px 3px 2px rgba(145, 77, 161, 0.459) !important;
+  box-shadow: 0 3px 3px 2px rgba(77, 145, 161, 0.459) !important;
   color: white !important;
   transition: all 0.5s ease 0s !important;
   height: 100% !important;
@@ -501,7 +504,7 @@ button:focus {
 .blog-card-view:hover {
   transform: scale(1.02) !important;
   overflow: hidden !important;
-  box-shadow: 0 3px 3px 5px rgba(155, 88, 173, 0.65) !important;
+  box-shadow: 0 3px 3px 5px rgba(88, 155, 173, 0.65) !important;
 }
 
 .card-img-top {
@@ -518,15 +521,16 @@ button:focus {
 
 .btn-primary {
   color: #fff !important;
-  background-color: #623686 !important;
-  border-color: #623686 !important;
+  background-color: #366286 !important;
+  border-color: #366286 !important;
 }
 
 .btn-primary:hover {
   color: #fff !important;
-  background-color: #6d20c5d7 !important;
-  border-color: #6d20c5d7 !important;
+  background-color: #2068c5d7 !important;
+  border-color: #2068c5d7 !important;
 }
+
 .btn:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -555,12 +559,12 @@ button:focus {
   margin: 15px !important;
   padding: 10px !important;
   opacity: 0.93 !important;
-  border: 1.7px solid rgba(200, 137, 230, 0.637) !important;
+  border: 1.7px solid rgba(137, 188, 230, 0.637) !important;
   vertical-align: middle !important;
   text-align: center !important;
   border-radius: 5px !important;
   display: table !important;
-  box-shadow: 4px 5px 4px 3px rgba(89, 4, 168, 0.137) !important;
+  box-shadow: 4px 5px 4px 3px rgba(4, 89, 168, 0.137) !important;
   overflow: hidden !important;
   transition: all 0.4s ease 0s !important;
 }
@@ -574,8 +578,9 @@ button:focus {
 .tech-icons:hover {
   transform: scale(1.05) !important;
   overflow: hidden !important;
-  border: 2.2px solid rgba(197, 115, 230, 0.883) !important;
+  border: 2.2px solid rgba(115, 169, 230, 0.883) !important;
 }
+
 .tech-icon-images {
   padding: 20px !important;
   line-height: 1.6 !important;
@@ -645,14 +650,14 @@ button:focus {
 .resume .resume-item {
   padding: 0 0 10px 25px;
   margin-top: -2px;
-  border-left: 2px solid #8a49a8;
+  border-left: 2px solid #0077b6; /* Changed to a blue shade */
   position: relative;
 }
 
 .resume .resume-item .resume-title {
   line-height: 18px;
   font-size: 0.9em;
-  background: #5234795d;
+  background: #90e0ef5d; /* Changed to a light blue shade */
   padding: 8px 15px;
   display: inline-block;
   font-weight: 600;
@@ -682,7 +687,7 @@ button:focus {
   left: -9px;
   top: 0;
   background: #fff;
-  border: 2px solid #8a49a8;
+  border: 2px solid #0077b6; /* Changed to a blue shade */
 }
 
 .like-item {
@@ -692,18 +697,18 @@ button:focus {
 }
 
 .like-btn {
-  background-color: #934cce5e !important;
-  border-color: #934cce5e !important;
-  padding: 0.25rem 0.98rem !important;
-  border-radius: 5px !important;
-  line-height: 1.4 !important;
-  transition: 0.3s ease !important;
+  background-color: #4682b4 !important; /* Light Steel Blue background color */
+  border-color: #4682b4 !important; /* Matching border color */
+  padding: 0.25rem 0.98rem !important; /* Padding to give some space around the text */
+  border-radius: 5px !important; /* Rounded corners for a smoother look */
+  line-height: 1.4 !important; /* Spacing between lines for readability */
+  transition: 0.3s ease !important; /* Smooth transition effect for interactions */
 }
 
 .like-btn:hover {
-  transform: translateY(-2px) !important;
-  background-color: #a24dd386 !important;
-  border-color: #a24dd386 !important;
+  transform: translateY(-2px) !important; /* Moves the button up slightly on hover */
+  background-color: #5f9ea0 !important; /* Cadet Blue background color on hover */
+  border-color: #5f9ea0 !important; /* Matching border color on hover */
 }
 
 .animate-like {
@@ -726,18 +731,19 @@ button:focus {
 }
 
 .fork-btn-inner {
-  line-height: 1.4em !important;
-  background-color: #934cce5e !important;
-  padding: 0.25rem 1.1rem !important;
-  vertical-align: middle !important;
-  text-align: center !important;
+  line-height: 1.4em !important; /* Sets the height of each line of text */
+  background-color: #4682b4 !important; /* Light Steel Blue background color */
+  padding: 0.25rem 1.1rem !important; /* Adds padding for space around the text */
+  vertical-align: middle !important; /* Aligns the element vertically in the middle */
+  text-align: center !important; /* Centers the text horizontally */
 }
 
 .fork-btn-inner:hover {
-  transform: translateY(-2px) !important;
-  background-color: #a24dd386 !important;
-  border-color: #a24dd386 !important;
+  transform: translateY(-2px) !important; /* Moves the button up slightly on hover */
+  background-color: #5f9ea0 !important; /* Cadet Blue background color on hover */
+  border-color: #5f9ea0 !important; /* Matches the border color to the hover color */
 }
+
 .fork-btn-inner::after {
-  display: none !important;
+  display: none !important; /* Hides any element that comes after using the ::after pseudo-element */
 }
