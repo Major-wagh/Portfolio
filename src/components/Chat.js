@@ -3,14 +3,15 @@ import Groq from 'groq-sdk';
 import { Pinecone } from "@pinecone-database/pinecone";
 
 // Initialize Groq client
+
 const client = new Groq({
-  apiKey: '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',
+  apiKey: process.env.REACT_APP_GROQ_API_KEY,
   dangerouslyAllowBrowser: true
 });
 
 // Initialize Pinecone client
 const pinecone = new Pinecone({
-  apiKey: 'pcsk_mqneZ_MX88cHVPBPLNN6SxpGtRZFF2ntgTJi48FNLuzyd5e2MFexFdnpYmWe9mS31YEWG',
+  apiKey: process.env.REACT_APP_PINECONE_API_KEY,
 });
 
 // System prompt for the chatbot
@@ -62,7 +63,7 @@ const getQueryEmbedding = async (text) => {
       {
         method: "POST",
         headers: {
-          "Authorization": "Bearer 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",
+          "Authorization": `Bearer ${process.env.REACT_APP_HUGGINGFACE_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
