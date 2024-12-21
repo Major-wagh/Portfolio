@@ -1,105 +1,98 @@
 import React, { useState, useEffect, useRef } from "react";
 import Groq from 'groq-sdk';
-import { Pinecone } from "@pinecone-database/pinecone";
-
+import chatImg from "../Assets/chatbot.png";
 // Initialize Groq client
-
 const client = new Groq({
   apiKey: process.env.REACT_APP_GROQ_API_KEY,
   dangerouslyAllowBrowser: true
 });
 
-// Initialize Pinecone client
-const pinecone = new Pinecone({
-  apiKey: process.env.REACT_APP_PINECONE_API_KEY,
-});
-
 // System prompt for the chatbot
-const SYSTEM_PROMPT = `You represent Siddharth Wagh in a portfolio chatbot. Include chat history. Be concise and clear in all responses.
-Siddharth is an Associate Data Scientist at Jio Platforms Limited, specializing in Generative AI and DevOps.
+const SYSTEM_PROMPT = `
+You represent Siddharth Wagh in a portfolio chatbot. Include chat history. Be concise and clear in all responses.
+Siddharth is an Associate Data Scientist at Jio Platforms Limited with 1+ years of experience in developing AI-driven applications and Enterprise Gen-AI platforms.
+
+Background:
+- Based in Pune, India
+- Computer Engineering graduate (Honors in Cybersecurity) from Ajeenkya D.Y Patil School of Engineering
+- Contact: +91-8446334890/7038194599, siddw143@gmail.com
+
+Technical Skills:
+- Core: Python, Docker, Kubernetes, Linux/Unix administration
+- AI/ML: Generative AI, PyTorch, Ray framework, LangChain, Langgraph
+- DevOps: Git, Microservices architecture, FastAPI, Database Administration
+- Languages: English, Hindi, Marathi
+
+Professional Achievements:
+- Developed enterprise-scale Generative AI Platform and Gateway
+- Reduced Azure DevOps Wiki CDC pipeline time from 83 to 12 minutes
+- Implemented multi-agent LangGraph system reducing MTTR by 75%
+- Improved system uptime by 15% using Kubernetes with Prometheus/Grafana
+- Reduced code conflicts by 30% through version control implementation
+
+Notable Projects:
+- Web application for analyzing news items, tweets, and images (SIH Project)
+  - Used Django, LSTM networks, and YOLOv4 for content analysis
+  - Integrated multiple data sources using tweepy and pygooglenews APIs
+
+Previous Experience:
+- Web application pentester at Ideadunes, Pune (Nov 2021 - Mar 2022)
+  - Conducted penetration testing and vulnerability assessments
 
 Rules:
+1. Answer only questions about Siddharth or his work
+2. Avoid repetition and unnecessary details
+3. Prioritize clarity and precision in responses
+4. Be professional but friendly in tone
+5. Use specific examples from experience when relevant
+6. Maintain consistency with provided background information
+7. For technical questions, focus on areas of expertise
+8. If asked about unavailable information, acknowledge limitations
 
-Answer only questions about Siddharth or his work.
-Avoid repetition and unnecessary details.
-Prioritize clarity and precision in responses.
 Example Interactions:
 Q: What's your name?
 A: Siddharth Wagh.
 
-Q: What's your role?
-A: Associate Data Scientist focusing on GenAI and DevOps.
+Q: What's your current role?
+A: Associate Data Scientist at Jio Platforms Limited, focusing on GenAI and DevOps.
 
-Q: How long have you been with Jio?
-A: Since October 2023.
+Q: What's your expertise?
+A: I specialize in developing AI-driven applications and Enterprise Gen-AI platforms, with strong skills in Docker, Kubernetes, and Python.
 
-Q: Where are you based?
-A: Pune, India.
+Q: What's your biggest achievement?
+A: One of my key achievements was optimizing the Azure DevOps Wiki CDC pipeline, reducing processing time from 83 to 12 minutes using Ray framework.
 
-Q: What are your skills?
-A: Docker, Kubernetes, Python, LangChain, and Linux administration.
-
-Q: What projects have you worked on?
-A: Developing an enterprise Generative AI platform and optimizing DevOps pipelines.
-
-Q: Do you code in your free time?
-A: Yes, I enjoy working on personal projects.
-
-Rationale:
-
-Lets Think Step by Step:
-
-Siddharth is an Associate Data Scientist specializing in Generative AI and DevOps at Jio.
-He works on developing enterprise-scale AI platforms and optimizing CI/CD pipelines.
-Siddharth has 1+ years of experience, with a strong technical stack (Docker, Kubernetes, Python).
-He is passionate about solving technical challenges, continuous learning, and personal coding projects.
+Q: What's your educational background?
+A: I have a Bachelor's in Computer Engineering with Honors in Cybersecurity from Ajeenkya D.Y Patil School of Engineering.
 `;
 
-// Function to generate embeddings using HuggingFace multilingual-e5-large
-const getQueryEmbedding = async (text) => {
-  try {
-    const response = await fetch(
-      "https://api-inference.huggingface.co/models/intfloat/multilingual-e5-large",
-      {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${process.env.REACT_APP_HUGGINGFACE_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inputs: text,
-          options: {
-            wait_for_model: true,
-            use_cache: true
-          }
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const result = await response.json();
-    return result[0];
-  } catch (error) {
-    console.error("Error generating embedding:", error);
-    throw error;
-  }
-};
-
 // Chatbot Component
-const Chatbot = () => {
+const Chatbot = ({ contextFiles = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [context, setContext] = useState("");
 
   const messagesEndRef = useRef(null);
 
-  // Clear chat history on component mount (page reload)
+  // Process context files when component mounts or contextFiles prop changes
   useEffect(() => {
-    setMessages([]); // Clears messages when the component is mounted
+    const processContextFiles = async () => {
+      try {
+        const combinedContext = contextFiles.map(file => file.content).join('\n\n');
+        setContext(combinedContext);
+      } catch (error) {
+        console.error("Error processing context files:", error);
+      }
+    };
+
+    processContextFiles();
+  }, [contextFiles]);
+
+  // Clear chat history on component mount
+  useEffect(() => {
+    setMessages([]);
   }, []);
 
   // Add greeting message when the chatbot is opened
@@ -109,12 +102,12 @@ const Chatbot = () => {
     }
   }, [isOpen, messages.length]);
 
-  // Save chat history to localStorage whenever messages update
+  // Save chat history to localStorage
   useEffect(() => {
     localStorage.setItem("chatMessages", JSON.stringify(messages));
   }, [messages]);
 
-  // Scroll to the latest message
+  // Scroll to latest message
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -123,29 +116,6 @@ const Chatbot = () => {
 
   const toggleChatbot = () => {
     setIsOpen(!isOpen);
-  };
-
-  // Function to query Pinecone and get relevant context
-  const getRelevantContext = async (query) => {
-    try {
-      const index = pinecone.index('portfolio');
-      const queryEmbedding = await getQueryEmbedding(query);
-
-      const queryResponse = await index.query({
-        vector: queryEmbedding,
-        topK: 5,
-        includeMetadata: true
-      });
-
-      const context = queryResponse.matches
-        .map(match => match.metadata.text)
-        .join('\n');
-
-      return context;
-    } catch (error) {
-      console.error("Error querying Pinecone:", error);
-      return "";
-    }
   };
 
   const sendMessage = async () => {
@@ -157,8 +127,6 @@ const Chatbot = () => {
     setLoading(true);
 
     try {
-      const context = await getRelevantContext(userInput);
-
       const prompt = context 
         ? `Context: ${context}\n\nUser Question: ${userInput}`
         : userInput;
@@ -202,8 +170,16 @@ const Chatbot = () => {
       {isOpen && (
         <div className="chatbot-window">
           <div className="chatbot-header">
-            <img src="/src/Assets/chatbot.png"></img>
-            <span>Sid.ai</span>
+          <img 
+            src={chatImg} 
+            alt="Chatbot" 
+            style={{ width: "50px", height: "auto", borderRadius: "50%" }} 
+          />
+            <span style={{
+        flex: 1, 
+        textAlign: 'center', 
+        fontWeight: 'bold'
+      }}>Sid.ai</span>
             <button onClick={toggleChatbot} className="close-button">
               ✖
             </button>
